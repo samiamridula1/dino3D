@@ -1,6 +1,6 @@
 # BRACU_CSE423
 
-This repository contains materials for **CSE423 Fall (2024)**.
+This repository contains materials for **CSE423 Fall (2024)** and to get idea of the project.
 
 ## Guidelines
 1. **Do not use AI**  
