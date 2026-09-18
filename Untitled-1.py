@@ -10,8 +10,31 @@ jump_power=9
 velo=0
 dino_y=0
 delta_time=0.015
-dino={"x": 50,"y": 0,"width": 40,"height": 50}
-obstacle = {"x": 300,"y": 0,"width": 30,"height": 40}
+dino_x=60
+dino_y=50
+dino_width=40
+dino_height=50
+cactus_x=300
+cactus_y=50
+cactus_width=30
+cactus_height=40
+# dino={"x": 50,"y": 0,"width": 40,"height": 50}
+# obstacle = {"x": 300,"y": 0,"width": 30,"height": 40}
+def draw_rec(x,y,width,height):
+  glBegin(GL_QUADS)
+  glVertex2f(x,y)
+  glVertex2f(x+width,y)
+  glVertex2f(x+width,y+height)
+  glVertex2f(x,y+height)
+  glEnd()
+def draw_dino():
+  draw_rec(dino_x,dino_y,dino_width,dino_height) #body
+  glColor3f(0.0,0.8,0.0)
+  draw_rec(dino_x+10,dino_y+50,20,10) #matha
+  glColor3f(0.0,0.0,0.8) #eye
+  draw_rec(dino_x+30,dino_y+30,10,10)
+def draw_cactus():
+  draw_rec(cactus_x,cactus_y,cactus_width,cactus_height)
 def jump():
  global velo
  if dino_y<=0:
