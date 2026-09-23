@@ -38,7 +38,7 @@ def draw_rec(x,y,width,height):
   glVertex2f(x,y+height)
   glEnd()
 def draw_tail():
-    glColor3f(0.0, 0.8, 0.0)
+    glColor3f(0.0, 0.5,0.0)
     glBegin(GL_TRIANGLES)
     glVertex2f(dino_x,dino_y+15)
     glVertex2f(dino_x,dino_y+35)
@@ -48,7 +48,7 @@ def draw_dino():
   draw_tail()
   glColor3f(0.0,0.8,0.0)
   draw_rec(dino_x,dino_y,dino_width,dino_height) #body
-  glColor3f(0.0,0.8,0.0)
+  glColor3f(0.0,0.7,0.0)
   glVertex2f(dino_x,dino_y+15)
   glVertex2f(dino_x,dino_y+35)
 
@@ -57,7 +57,7 @@ def draw_dino():
   # glVertex2f(dino_x-50,dino_y+5)
   draw_rec(dino_x+10,dino_y+50,50,19)
   glColor3f(0,0.8,0)
-  glColor3f(0,0,0.9) #eye
+  glColor3f(0.15,0,0) #eye
 
   draw_points(dino_x+25,dino_y+55)
 def draw_cactus():
