@@ -4,16 +4,15 @@ from OpenGL.GLU import *
 camera_pos=(0,200,200)
 gm_over=False
 score=0
-speed=10
+speed=100
 g=9.8
 jump_power=9
 velo=0
-dino_y=0
 delta_time=0.015
 dino_x=60
 dino_y=50
-dino_width=40
-dino_height=50
+dino_width=50
+dino_height=70
 cactus_x=300
 cactus_y=50
 cactus_width=30
@@ -46,20 +45,22 @@ def draw_tail():
     glEnd()
 def draw_dino():
   draw_tail()
-  glColor3f(0.0,0.8,0.0)
+  glColor3f(0.0,.6,0.0)
   draw_rec(dino_x,dino_y,dino_width,dino_height) #body
-  glColor3f(0.0,0.7,0.0)
-  glVertex2f(dino_x,dino_y+15)
-  glVertex2f(dino_x,dino_y+35)
+  glColor3f(0.0, 0.7, 0.0)
+  glBegin(GL_LINES)
+  glVertex2f(dino_x, dino_y+15)
+  glVertex2f(dino_x, dino_y+35)
+  glEnd()
 
   # glVertex2f(dino_x-50,dino_y+15)
   # glVertex2f(dino_x,dino_y+35)
   # glVertex2f(dino_x-50,dino_y+5)
-  draw_rec(dino_x+10,dino_y+50,50,19)
+  draw_rec(dino_x+5,dino_y+65,70,45) #head
   glColor3f(0,0.8,0)
-  glColor3f(0.15,0,0) #eye
+  glColor3f(0.1578,0,0.6897) #eye
 
-  draw_points(dino_x+25,dino_y+55)
+  draw_points(dino_x+25,dino_y+76)
 def draw_cactus():
     glColor3f(0.0, 0.8, 0.0)
     glBegin(GL_LINES)
@@ -82,7 +83,7 @@ def draw_cactus():
 
 def jump():
  global velo
- if dino_y<=0:
+ if dino_y<=50:
    velo=jump_power
 def keyboard(key, x, y):
  if key==b' ':
@@ -95,16 +96,20 @@ def update():
     global velo, score, gm_over, dino_y, cactus_x
     if gm_over:
         return
-    velo -= g * delta_time
-    dino_y += velo * delta_time
+    velo-=g*delta_time
+    dino_y+= velo * delta_time
     if dino_y <= 50:
         dino_y = 50
         velo = 0
     cactus_x -= speed * delta_time
+    if cactus_x<-50:
+       cactus_x=500
+       score+=1
     if collision():
         gm_over = True
         print("Game Over")
         print("Score:", score)
+    # print(cactus_x)
 def game_over():
  return gm_over
 def drawQuads():
@@ -138,16 +143,27 @@ def showScreen():
     draw_cactus()
 
     glutSwapBuffers()
+def idle():
+   glutPostRedisplay()
+def main():
+    glutInit()
+
+    glutInitDisplayMode(
+        GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH
+    )
+
+    glutInitWindowSize(500, 500)
+    glutInitWindowPosition(0, 0)
+
+    # Create window FIRST
+    glutCreateWindow(b"Dino Game")
+
+    # Register callbacks AFTER creating window
+    glutDisplayFunc(showScreen)
+    glutKeyboardFunc(keyboard)
+    glutIdleFunc(idle)
+
+    glutMainLoop()
 
 
-glutInit()
-glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH)
-glutInitWindowSize(500, 500)
-glutInitWindowPosition(0, 0)
-
-wind = glutCreateWindow(b"Dino Game")
-
-glutDisplayFunc(showScreen)
-glutKeyboardFunc(keyboard)
-
-glutMainLoop()
+main()
