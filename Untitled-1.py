@@ -20,6 +20,16 @@ cactus_width=30
 cactus_height=40
 # dino={"x": 50,"y": 0,"width": 40,"height": 50}
 # obstacle = {"x": 300,"y": 0,"width": 30,"height": 40}
+def draw_points(x, y):
+    # The parameter that is passed in the function dictates the size of the pixel.
+    glPointSize(10)
+
+    glBegin(GL_POINTS)
+
+    # Think of this as a co-ordinate. At the given x and y position the pixel will be drawn.
+    glVertex2f(x, y)
+
+    glEnd()
 def draw_rec(x,y,width,height):
   glBegin(GL_QUADS)
   glVertex2f(x,y)
@@ -30,9 +40,9 @@ def draw_rec(x,y,width,height):
 def draw_dino():
   draw_rec(dino_x,dino_y,dino_width,dino_height) #body
   glColor3f(0.0,0.8,0.0)
-  draw_rec(dino_x+10,dino_y+50,20,10) #matha
+  draw_rec(dino_x+10,dino_y+50,22,17)
   glColor3f(0.0,0.0,0.8) #eye
-  draw_rec(dino_x+30,dino_y+30,10,10)
+  draw_points(dino_x+25,dino_y+55)
 def draw_cactus():
   draw_rec(cactus_x,cactus_y,cactus_width,cactus_height)
 def jump():
@@ -62,6 +72,20 @@ if collision(dino,obstacle):
  print("Game Over")
 def game_over():
  return gm_over
+def drawQuads():
+    glBegin(GL_QUADS)
+
+    # The points have to be in anticlockwise order.
+    glColor3f(1.0, 0.0, 0.0)
+    glVertex2f(300, 300)
+    glColor3f(0.0, 1.0, 0.0)
+    glVertex2f(400, 300)
+    glColor3f(0.0, 0.0, 1.0)
+    glVertex2f(400, 100)
+    glColor3f(1.0, 1.0, 1.0)
+    glVertex2f(300, 100)
+
+    glEnd()
 def iterate():
     glViewport(0, 0, 500, 500)
     glMatrixMode(GL_PROJECTION)
