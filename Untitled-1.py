@@ -41,10 +41,29 @@ def draw_dino():
   draw_rec(dino_x,dino_y,dino_width,dino_height) #body
   glColor3f(0.0,0.8,0.0)
   draw_rec(dino_x+10,dino_y+50,22,17)
-  glColor3f(0.0,0.0,0.8) #eye
+  glColor3f(0,0.8,0)
+  glColor3f(0,0,0.9) #eye
   draw_points(dino_x+25,dino_y+55)
 def draw_cactus():
-  draw_rec(cactus_x,cactus_y,cactus_width,cactus_height)
+    glColor3f(0.0, 0.8, 0.0)
+    glBegin(GL_LINES)
+    glVertex2f(cactus_x,cactus_y)
+    glVertex2f(cactus_x,cactus_y+40)
+    glVertex2f(cactus_x+10,cactus_y)
+    glVertex2f(cactus_x+10,cactus_y+40)
+    glVertex2f(cactus_x,cactus_y + 20)
+    glVertex2f(cactus_x-15,cactus_y+20)
+    glVertex2f(cactus_x-15,cactus_y+20)
+    glVertex2f(cactus_x-15,cactus_y+30)
+    glVertex2f(cactus_x+10,cactus_y+25)
+    glVertex2f(cactus_x+25,cactus_y+25)
+    glVertex2f(cactus_x+25,cactus_y+25)
+    glVertex2f(cactus_x+25,cactus_y+35)
+    glEnd()
+
+
+
+
 def jump():
  global velo
  if dino_y<=0:
@@ -52,24 +71,24 @@ def jump():
 def keyboard(key, x, y):
  if key==b' ':
   jump()
-def collision(dino, obstacle):
- horizontal=(dino["x"]<obstacle["x"]+obstacle["width"] and dino["x"]+dino["width"]>obstacle["x"])
- vertical=(dino["y"]<obstacle["y"]+obstacle["height"] and dino["y"]+dino["height"]>obstacle["y"])
- return horizontal and vertical
+def collision():
+    horizontal=(dino_x<cactus_x+cactus_width and dino_x+dino_width>cactus_x)
+    vertical=(dino_y<cactus_y+cactus_height and dino_y+dino_height>cactus_y)
+    return horizontal and vertical
 def update():
- global velo, score, gm_over, dino_y
- if gm_over:
-  return
-velo-=g*delta_time
-dino_y+=velo*delta_time
-if dino_y<=0:
- dino_y=0
- velo=0
- dino["y"]=dino_y
- obstacle["x"]-=speed*delta_time
-if collision(dino,obstacle):
- gm_over=True
- print("Game Over")
+    global velo, score, gm_over, dino_y, cactus_x
+    if gm_over:
+        return
+    velo -= g * delta_time
+    dino_y += velo * delta_time
+    if dino_y <= 50:
+        dino_y = 50
+        velo = 0
+    cactus_x -= speed * delta_time
+    if collision():
+        gm_over = True
+        print("Game Over")
+        print("Score:", score)
 def game_over():
  return gm_over
 def drawQuads():
@@ -99,6 +118,8 @@ def showScreen():
 
     iterate()
     update()
+    draw_dino()
+    draw_cactus()
 
     glutSwapBuffers()
 
