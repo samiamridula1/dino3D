@@ -47,7 +47,7 @@ def draw_dino():
   glVertex2f(dino_x-50,dino_y+15)
   glVertex2f(dino_x,dino_y+35)
   glVertex2f(dino_x-50,dino_y+5)
-  draw_rec(dino_x+10,dino_y+50,50,18)
+  draw_rec(dino_x+10,dino_y+50,50,19)
   glColor3f(0,0.8,0)
   glColor3f(0,0,0.9) #eye
   draw_points(dino_x+25,dino_y+55)
